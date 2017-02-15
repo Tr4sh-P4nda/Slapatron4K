@@ -1,0 +1,16 @@
+{
+  "name": "smack",
+  "version": "0.2",
+  "description": "Smack app",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.13.3",
+    "socket.io": "*"
+  },
+  "engines": {
+    "node": "4.0.0"
+  }
+}
