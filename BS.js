@@ -64,34 +64,37 @@ function startBitchSlap() {
             console.log('Well Jacob, you fucked something up: ', err);
         });
 
-        function updateBitchHand(data) {
-            if (data != undefined && data.id != undefined && data.id != userIdent) {
-                if (bitch_slap_hands[data.id] != undefined) {
+        function updateBitchHand(arr) {
+            for(var key in arr){
+                var data = arr[key];
+                if (data != undefined && data.id != undefined && data.id != userIdent) {
+                    if (bitch_slap_hands[data.id] != undefined) {
 
-                    var bitch_hand = bitch_slap_hands[data.id];
-                    bitch_hand.position.y = data.y;
-                    bitch_hand.position.x = data.x;
-                    bitch_hand.position.z = data.z;
+                        var bitch_hand = bitch_slap_hands[data.id];
+                        bitch_hand.position.y = data.y;
+                        bitch_hand.position.x = data.x;
+                        bitch_hand.position.z = data.z;
 
-                } else {
+                    } else {
 
-                    var geometry_hand = new THREE.SphereGeometry(0.05, 5, 5);
-                    var material_hand = new THREE.MeshBasicMaterial({
-                        color: 0xffff00
-                    });
-                    material_hand.visible = false;
-                    var bitch_hand = new THREE.Mesh(geometry_hand, material_hand);
-                    bitch_hand.userData.userId = data.id;
-                    bitch_hand.position.y = data.y;
-                    bitch_hand.position.x = data.x;
-                    bitch_hand.position.z = data.z;
-                    var colliderBox = new NativeComponent('n-mesh-collider', {
-                        type: "environment",
-                        convex: true
-                    }, bitch_hand);
-                    sim.scene.add(bitch_hand);
-                    bitch_slap_hands[data.id] = bitch_hand;
+                        var geometry_hand = new THREE.SphereGeometry(0.05, 5, 5);
+                        var material_hand = new THREE.MeshBasicMaterial({
+                            color: 0xffff00
+                        });
+                        material_hand.visible = false;
+                        var bitch_hand = new THREE.Mesh(geometry_hand, material_hand);
+                        bitch_hand.userData.userId = data.id;
+                        bitch_hand.position.y = data.y;
+                        bitch_hand.position.x = data.x;
+                        bitch_hand.position.z = data.z;
+                        var colliderBox = new NativeComponent('n-mesh-collider', {
+                            type: "environment",
+                            convex: true
+                        }, bitch_hand);
+                        sim.scene.add(bitch_hand);
+                        bitch_slap_hands[data.id] = bitch_hand;
 
+                    }
                 }
             }
         }
@@ -117,11 +120,11 @@ function startBitchSlap() {
         function guid() {
             function s4() {
                 return Math.floor((1 + Math.random()) * 0x10000)
-                    .toString(16)
-                    .substring(1);
+                .toString(16)
+                .substring(1);
             }
             return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-                s4() + '-' + s4() + s4() + s4();
+            s4() + '-' + s4() + s4() + s4();
         }
 
         socket.on('position', function(data) {
