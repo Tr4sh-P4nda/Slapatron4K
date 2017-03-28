@@ -67,13 +67,12 @@ function startBitchSlap() {
         function updateBitchHand(arr) {
             for(var key in arr){
                 var data = arr[key];
+                data.id = key;
                 if (data != undefined && data.id != undefined && data.id != userIdent) {
                     if (bitch_slap_hands[data.id] != undefined) {
 
                         var bitch_hand = bitch_slap_hands[data.id];
-                        bitch_hand.position.y = data.y;
-                        bitch_hand.position.x = data.x;
-                        bitch_hand.position.z = data.z;
+                        move(bitch_hand, data);
 
                     } else {
 
@@ -126,6 +125,19 @@ function startBitchSlap() {
             return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
             s4() + '-' + s4() + s4() + s4();
         }
+
+        var fps = 1000/20;
+
+        function move(object, nPos){
+            var time = Date.now();
+            var oPos = new THREE.Vector3(object.position.x, object.position.y, object.position.z);
+            (function loop(){
+                var progress = Date.now() - time;
+                if(progress > fps) return;
+                object.position.lerpVectors(oPos, nPos, progress/fps);
+                requestAnimationFrame(loop);
+            }());
+        };
 
         socket.on('position', function(data) {
             if (data) {

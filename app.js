@@ -7,7 +7,7 @@ io.on('connection', function(socket) {
     console.log("New Connection!");
     socket.on('update_position', function(data) {
     	if(data && data.position && data.id){
-            position[id] = data.position;
+            positions[data.id] = data.position;
     	}
     });
 });
