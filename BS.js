@@ -102,7 +102,7 @@ function startBitchSlap() {
             if (should_send) {
                 if (hand != undefined) {
                     if (userIdent == undefined) {
-                        userIdent = guid();
+                        userIdent = THREE.math.generateUUID();
                     }
                     socket.emit('update_position', {
                         position: {
@@ -115,16 +115,6 @@ function startBitchSlap() {
                 }
             }
         }, 150);
-
-        function guid() {
-            function s4() {
-                return Math.floor((1 + Math.random()) * 0x10000)
-                .toString(16)
-                .substring(1);
-            }
-            return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-            s4() + '-' + s4() + s4() + s4();
-        }
 
         var fps = 1000/20;
 
