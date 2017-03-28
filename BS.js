@@ -114,7 +114,7 @@ function startBitchSlap() {
                     });
                 }
             }
-        }, 150);
+        }, 100);
 
         var fps = 1000/20;
 
